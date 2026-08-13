@@ -15,27 +15,27 @@ const (
 var currentAcceleration float64
 
 type Player struct {
-	game     *Game
-	sprite   *ebiten.Image
-	rotation float64
-	position Vector
-	velocity float64
+	gameScene *GameScene
+	sprite    *ebiten.Image
+	rotation  float64
+	position  Vector
+	velocity  float64
 }
 
-func NewPlayer(game *Game) *Player {
+func NewPlayer(scene *GameScene) *Player {
 	sprite := assets.PlayerSprite
 
 	p := &Player{
-		game:   game,
-		sprite: sprite,
+		gameScene: scene,
+		sprite:    sprite,
 	}
 
 	width, height := p.dimensions()
 	halfW := width / 2
 	halfH := height / 2
 	pos := Vector{
-		X: float64(game.screenWidth)/2 - halfW,
-		Y: float64(game.screenHeight)/2 - halfH,
+		X: float64(screenWidth)/2 - halfW,
+		Y: float64(screenHeight)/2 - halfH,
 	}
 	p.position = pos
 
@@ -96,20 +96,20 @@ func (p *Player) accelerate() {
 }
 
 func (p *Player) keepOnScreen() {
-	if p.position.X >= float64(p.game.screenWidth) {
+	if p.position.X >= float64(screenWidth) {
 		p.position.X = 0
 	}
 
 	if p.position.X < 0 {
-		p.position.X = float64(p.game.screenWidth)
+		p.position.X = float64(screenWidth)
 	}
 
-	if p.position.Y >= float64(p.game.screenHeight) {
+	if p.position.Y >= float64(screenHeight) {
 		p.position.Y = 0
 	}
 
 	if p.position.Y < 0 {
-		p.position.Y = float64(p.game.screenHeight)
+		p.position.Y = float64(screenHeight)
 	}
 }
 

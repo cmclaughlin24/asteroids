@@ -13,7 +13,6 @@ const (
 
 func main() {
 	g := asteroids.NewGame(ScreenWidth, ScreenHeight)
-	g.Player = asteroids.NewPlayer(g)
 
 	ebiten.SetWindowTitle("Asteriods")
 	ebiten.SetWindowSize(ScreenWidth, ScreenHeight)

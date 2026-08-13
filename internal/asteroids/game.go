@@ -2,27 +2,38 @@ package asteroids
 
 import "github.com/hajimehoshi/ebiten/v2"
 
-type Game struct {
-	Player       *Player
+var (
 	screenWidth  int
 	screenHeight int
+)
+
+type Game struct {
+	sceneManager *SceneManager
+	input        *Input
 }
 
-func NewGame(screenWidth, screenHeight int) *Game {
-	return &Game{
-		screenWidth:  screenWidth,
-		screenHeight: screenHeight,
-	}
+func NewGame(width, height int) *Game {
+	screenWidth = width
+	screenHeight = height
+	return &Game{}
 }
 
 func (g *Game) Update() error {
-	g.Player.Update()
+	if g.sceneManager == nil {
+		g.sceneManager = NewSceneManager()
+		g.sceneManager.GoToScene(NewTitleScene())
+	}
+
+	g.input.Update()
+	if err := g.sceneManager.Update(g.input); err != nil {
+		return err
+	}
 
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	g.Player.Draw(screen)
+	g.sceneManager.Draw(screen)
 }
 
 func (g *Game) Layout(width, height int) (int, int) {
