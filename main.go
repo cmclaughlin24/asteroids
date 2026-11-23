@@ -17,6 +17,8 @@ func main() {
 	ebiten.SetWindowTitle("Asteriods")
 	ebiten.SetWindowSize(ScreenWidth, ScreenHeight)
 
+	// LEAVING A COMMENT
+
 	if err := ebiten.RunGame(g); err != nil {
 		panic(err)
 	}
